@@ -19,8 +19,8 @@
 package org.apache.fineract.portfolio.loanaccount.loanschedule.domain;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.fineract.organisation.monetary.domain.Money;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanInterestRecalcualtionAdditionalDetails;
@@ -43,7 +43,7 @@ public final class LoanScheduleModelRepaymentPeriod implements LoanScheduleModel
     private Money penaltyChargesDue;
     private Money totalDue;
     private final boolean recalculatedInterestComponent;
-    private final Set<LoanInterestRecalcualtionAdditionalDetails> loanCompoundingDetails = new HashSet<>();
+    private final List<LoanInterestRecalcualtionAdditionalDetails> loanCompoundingDetails = new ArrayList<>();
 
     public static LoanScheduleModelRepaymentPeriod repayment(final int periodNumber, final LocalDate startDate,
             final LocalDate scheduledDueDate, final Money principalDue, final Money outstandingLoanBalance, final Money interestDue,
@@ -159,7 +159,7 @@ public final class LoanScheduleModelRepaymentPeriod implements LoanScheduleModel
         this.totalDue = this.totalDue.plus(principalDue);
     }
     @Override
-    public Set<LoanInterestRecalcualtionAdditionalDetails> getLoanCompoundingDetails() {
+    public List<LoanInterestRecalcualtionAdditionalDetails> getLoanCompoundingDetails() {
         return this.loanCompoundingDetails;
     }
 }

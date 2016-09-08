@@ -25,7 +25,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -34,6 +33,8 @@ import javax.persistence.Table;
 import org.apache.fineract.portfolio.account.domain.AccountAssociations;
 import org.apache.fineract.portfolio.loanaccount.domain.Loan;
 import org.apache.fineract.portfolio.savings.domain.SavingsAccount;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -63,7 +64,8 @@ public class GuarantorFundingDetails extends AbstractPersistable<Long> {
     @Column(name = "amount_transfered_derived", scale = 6, precision = 19, nullable = true)
     private BigDecimal amountTransfered;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guarantorFundingDetails", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "guarantorFundingDetails", orphanRemoval = true)
     private final List<GuarantorFundingTransaction> guarantorFundingTransactions = new ArrayList<>();
 
     protected GuarantorFundingDetails() {}

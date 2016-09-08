@@ -19,7 +19,7 @@
 package org.apache.fineract.portfolio.loanaccount.loanschedule.domain;
 
 import java.math.BigDecimal;
-import java.util.Set;
+import java.util.List;
 
 import org.apache.fineract.organisation.monetary.domain.Money;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanInterestRecalcualtionAdditionalDetails;
@@ -125,7 +125,7 @@ public final class LoanScheduleModelDisbursementPeriod implements LoanScheduleMo
         return;
     }
     @Override
-    public Set<LoanInterestRecalcualtionAdditionalDetails> getLoanCompoundingDetails() {
+    public List<LoanInterestRecalcualtionAdditionalDetails> getLoanCompoundingDetails() {
         return null;
     }
 }

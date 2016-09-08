@@ -109,6 +109,8 @@ import org.apache.fineract.portfolio.tax.domain.TaxComponent;
 import org.apache.fineract.portfolio.tax.domain.TaxGroup;
 import org.apache.fineract.portfolio.tax.service.TaxUtils;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -292,17 +294,16 @@ public class SavingsAccount extends AbstractPersistable<Long> {
     protected SavingsAccountSummary summary;
 
     @OrderBy(value = "dateOf, createdDate, id")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true, fetch=FetchType.EAGER)
-    protected final Set<SavingsAccountTransaction> transactions = new HashSet<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true)
+    protected final List<SavingsAccountTransaction> transactions = new ArrayList<>();
     
-    private transient List<SavingsAccountTransaction> orderedTransactions = null ;
-    
-    private transient boolean isTransactionsDirty = false ;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true)
     protected Set<SavingsAccountCharge> charges = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccount", orphanRemoval = true)
     private Set<SavingsOfficerAssignmentHistory> savingsOfficerHistory;
 
     @Transient
@@ -2266,17 +2267,11 @@ public class SavingsAccount extends AbstractPersistable<Long> {
     }
 
     public List<SavingsAccountTransaction> getTransactions() {
-        if(this.orderedTransactions == null || isTransactionsDirty) {
-            this.orderedTransactions = new ArrayList<>(this.transactions) ;
-            this.orderedTransactions.sort(new SavingsAccountTransactionComparator());
-            this.isTransactionsDirty = false ;
-        }
-        return orderedTransactions;
+        return this.transactions;
     }
 
     public void addTransaction(final SavingsAccountTransaction transaction) {
         this.transactions.add(transaction);
-        this.isTransactionsDirty = true ;
     }
     
     public void setStatus(final Integer status) {

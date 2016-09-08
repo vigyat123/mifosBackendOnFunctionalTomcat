@@ -30,7 +30,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -72,6 +71,8 @@ import org.apache.fineract.portfolio.savings.data.SavingsAccountTransactionDTO;
 import org.apache.fineract.portfolio.savings.domain.interest.PostingPeriod;
 import org.apache.fineract.portfolio.savings.service.SavingsEnumerations;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
@@ -89,13 +90,10 @@ public class RecurringDepositAccount extends SavingsAccount {
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "account")
     private DepositAccountInterestRateChart chart;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true, fetch=FetchType.EAGER)
-    private Set<RecurringDepositScheduleInstallment> depositScheduleInstallments = new HashSet<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "account", orphanRemoval = true)
+    private List<RecurringDepositScheduleInstallment> depositScheduleInstallments = new ArrayList<>();
 
-    private transient List<RecurringDepositScheduleInstallment> sortedDepositInstallments = null ;
-    
-    private transient boolean isDepositScheduleInstallmentDirty = false ;
-    
     protected RecurringDepositAccount() {
         //
     }
@@ -1127,7 +1125,6 @@ public class RecurringDepositAccount extends SavingsAccount {
 
     public void generateSchedule(final PeriodFrequencyType frequency, final Integer recurringEvery, final Calendar calendar) {
         this.depositScheduleInstallments.clear();
-        this.isDepositScheduleInstallmentDirty = true ;
         LocalDate installmentDate = null;
         if (this.isCalendarInherited()) {
             installmentDate = CalendarUtils.getNextScheduleDate(calendar, accountSubmittedOrActivationDate());
@@ -1159,17 +1156,15 @@ public class RecurringDepositAccount extends SavingsAccount {
     }
 
     private List<RecurringDepositScheduleInstallment> depositScheduleInstallments() {
-        if(this.isDepositScheduleInstallmentDirty || this.sortedDepositInstallments == null) {
-            this.sortedDepositInstallments = new ArrayList<>(this.depositScheduleInstallments) ;
-            this.sortedDepositInstallments.sort(new RecurringDepositScheduleInstallmentComparator());
-            this.isDepositScheduleInstallmentDirty = false ;
+        if (this.depositScheduleInstallments == null) {
+            this.depositScheduleInstallments = new ArrayList<>();
         }
-        return this.sortedDepositInstallments ;
+        return this.depositScheduleInstallments;
     }
+
 
     private void addDepositScheduleInstallment(final RecurringDepositScheduleInstallment installment) {
         this.depositScheduleInstallments.add(installment) ;
-        isDepositScheduleInstallmentDirty = true ;
     }
     
     public boolean isCalendarInherited() {

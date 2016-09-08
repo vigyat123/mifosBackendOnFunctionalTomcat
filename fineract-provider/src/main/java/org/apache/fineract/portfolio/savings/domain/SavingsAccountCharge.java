@@ -708,7 +708,7 @@ public class SavingsAccountCharge extends AbstractPersistable<Long> {
     public int hashCode() {
         return new HashCodeBuilder(3, 5) //
                 .append(getId()) //
-                //.append(this.charge.getId()) //
+                .append(this.charge.getId()) //
                 .append(this.amount).append(getDueLocalDate()) //
                 .toHashCode();
     }

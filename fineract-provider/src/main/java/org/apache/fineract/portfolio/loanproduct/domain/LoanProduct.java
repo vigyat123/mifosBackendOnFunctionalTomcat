@@ -60,6 +60,8 @@ import org.apache.fineract.portfolio.floatingrates.domain.FloatingRate;
 import org.apache.fineract.portfolio.fund.domain.Fund;
 import org.apache.fineract.portfolio.loanaccount.loanschedule.domain.AprCalculator;
 import org.apache.fineract.portfolio.loanproduct.LoanProductConstants;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -131,7 +133,8 @@ public class LoanProduct extends AbstractPersistable<Long> {
     @Column(name = "external_id", length = 100, nullable = true, unique = true)
     private String externalId;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loanProduct", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "loanProduct", orphanRemoval = true)
     private Set<LoanProductBorrowerCycleVariations> borrowerCycleVariations = new HashSet<>();
 
     @Column(name = "overdue_days_for_npa", nullable = true)
@@ -140,14 +143,17 @@ public class LoanProduct extends AbstractPersistable<Long> {
     @Column(name = "min_days_between_disbursal_and_first_repayment", nullable = true)
     private Integer minimumDaysBetweenDisbursalAndFirstRepayment;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true)
     private LoanProductInterestRecalculationDetails productInterestRecalculationDetails;
 
     @Column(name = "hold_guarantee_funds")
     private boolean holdGuaranteeFunds;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true)
     private LoanProductGuaranteeDetails loanProductGuaranteeDetails;
+
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true)
     private LoanProductConfigurableAttributes loanConfigurableAttributes;
@@ -167,13 +173,15 @@ public class LoanProduct extends AbstractPersistable<Long> {
     @Column(name = "is_linked_to_floating_interest_rates", nullable = false)
     private boolean isLinkedToFloatingInterestRate;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true)
     private LoanProductFloatingRates floatingRates;
 
     @Column(name = "allow_variabe_installments", nullable = false)
     private boolean allowVariabeInstallments;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "loanProduct", optional = true, orphanRemoval = true)
     private LoanProductVariableInstallmentConfig variableInstallmentConfig;
     
     @Column(name = "sync_expected_with_disbursement_date")

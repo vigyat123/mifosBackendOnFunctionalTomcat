@@ -26,7 +26,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -35,6 +34,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -44,8 +45,9 @@ public class ProvisioningEntry extends AbstractPersistable<Long> {
     @Column(name = "journal_entry_created")
     private Boolean isJournalEntryCreated;
     
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entry", orphanRemoval = true, fetch=FetchType.EAGER)
-    Set<LoanProductProvisioningEntry> provisioningEntries = new HashSet<>();
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "entry", orphanRemoval = true)
+    Collection<LoanProductProvisioningEntry> provisioningEntries = new HashSet<>();
     
     @OneToOne
     @JoinColumn(name = "createdby_id")

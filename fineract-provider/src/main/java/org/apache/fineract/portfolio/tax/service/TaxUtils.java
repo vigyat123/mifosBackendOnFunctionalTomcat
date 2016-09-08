@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import org.apache.fineract.organisation.monetary.domain.MoneyHelper;
 import org.apache.fineract.portfolio.tax.domain.TaxComponent;
@@ -32,7 +31,7 @@ import org.joda.time.LocalDate;
 public class TaxUtils {
 
     public static Map<TaxComponent, BigDecimal> splitTax(final BigDecimal amount, final LocalDate date,
-            final Set<TaxGroupMappings> taxGroupMappings, final int scale) {
+            final List<TaxGroupMappings> taxGroupMappings, final int scale) {
         Map<TaxComponent, BigDecimal> map = new HashMap<>(3);
         if (amount != null) {
             final double amountVal = amount.doubleValue();
@@ -52,7 +51,7 @@ public class TaxUtils {
         return map;
     }
 
-    public static BigDecimal incomeAmount(final BigDecimal amount, final LocalDate date, final Set<TaxGroupMappings> taxGroupMappings,
+    public static BigDecimal incomeAmount(final BigDecimal amount, final LocalDate date, final List<TaxGroupMappings> taxGroupMappings,
             final int scale) {
         Map<TaxComponent, BigDecimal> map = splitTax(amount, date, taxGroupMappings, scale);
         return incomeAmount(amount, map);

@@ -23,6 +23,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -86,6 +87,7 @@ import org.apache.fineract.portfolio.loanaccount.domain.LoanDisbursementDetails;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanRepaymentScheduleInstallment;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTermVariationType;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTermVariations;
+import org.apache.fineract.portfolio.loanaccount.domain.LoanTermVariationsComparator;
 import org.apache.fineract.portfolio.loanaccount.domain.transactionprocessor.LoanRepaymentScheduleTransactionProcessor;
 import org.apache.fineract.portfolio.loanaccount.exception.LoanApplicationDateException;
 import org.apache.fineract.portfolio.loanaccount.exception.MinDaysBetweenDisbursalAndFirstRepaymentViolationException;
@@ -657,7 +659,7 @@ public class LoanScheduleAssembler {
     public void assempleVariableScheduleFrom(final Loan loan, final String json) {
         this.variableLoanScheduleFromApiJsonValidator.validateSchedule(json, loan);
 
-        Set<LoanTermVariations> variations = loan.getLoanTermVariations();
+        List<LoanTermVariations> variations = loan.getLoanTermVariations();
         List<LoanTermVariations> newVariations = new ArrayList<>();
         extractLoanTermVariations(loan, json, newVariations);
 
@@ -668,7 +670,7 @@ public class LoanScheduleAssembler {
             newVariations = retainVariations;
         }
         variations.addAll(newVariations);
-        //Collections.sort(variations, new LoanTermVariationsComparator());
+        Collections.sort(variations, new LoanTermVariationsComparator());
         
         /*
          * List<LoanTermVariationsData> loanTermVariationsDatas = new
@@ -839,7 +841,7 @@ public class LoanScheduleAssembler {
         loan.regenerateRepaymentSchedule(scheduleGeneratorDTO, currentUser);
     }
 
-    private List<LoanTermVariations> adjustExistingVariations(Set<LoanTermVariations> variations, List<LoanTermVariations> newVariations,
+    private List<LoanTermVariations> adjustExistingVariations(List<LoanTermVariations> variations, List<LoanTermVariations> newVariations,
             final Map<LocalDate, LocalDate> adjustDueDateVariations) {
         Map<LocalDate, LoanTermVariations> amountVariations = new HashMap<>();
         Map<LocalDate, LoanTermVariations> dueDateVariations = new HashMap<>();

@@ -25,7 +25,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -38,6 +37,8 @@ import org.apache.fineract.portfolio.interestratechart.domain.InterestRateChartS
 import org.apache.fineract.portfolio.interestratechart.incentive.AttributeIncentiveCalculation;
 import org.apache.fineract.portfolio.interestratechart.incentive.AttributeIncentiveCalculationFactory;
 import org.apache.fineract.portfolio.interestratechart.incentive.IncentiveDTO;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -52,7 +53,8 @@ public class DepositAccountInterestRateChart extends AbstractPersistable<Long> {
     @JoinColumn(name = "savings_account_id", nullable = false)
     private SavingsAccount account;
 
-    @OneToMany(mappedBy = "depositAccountInterestRateChart", cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(mappedBy = "depositAccountInterestRateChart", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<DepositAccountInterestRateChartSlabs> chartSlabs = new HashSet<>();
 
     protected DepositAccountInterestRateChart() {

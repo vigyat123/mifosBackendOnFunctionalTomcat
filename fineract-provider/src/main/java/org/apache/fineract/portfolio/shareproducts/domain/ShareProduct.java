@@ -46,6 +46,8 @@ import org.apache.fineract.portfolio.charge.domain.Charge;
 import org.apache.fineract.portfolio.common.domain.PeriodFrequencyType;
 import org.apache.fineract.portfolio.shareproducts.data.ShareProductMarketPriceData;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.DateTime;
 
 @Entity
@@ -100,7 +102,8 @@ public class ShareProduct extends AbstractAuditableCustom<AppUser, Long> {
     private Long maximumShares;
 
     @OrderBy(value = "fromDate,id")
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "product", orphanRemoval = true)
     Set<ShareProductMarketPrice> marketPrice;
 
     @ManyToMany(fetch = FetchType.EAGER)

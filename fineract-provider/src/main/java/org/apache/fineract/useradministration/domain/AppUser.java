@@ -52,6 +52,8 @@ import org.apache.fineract.organisation.office.domain.Office;
 import org.apache.fineract.organisation.staff.domain.Staff;
 import org.apache.fineract.portfolio.client.domain.Client;
 import org.apache.fineract.useradministration.service.AppUserConstants;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.jpa.domain.AbstractPersistable;
@@ -120,7 +122,8 @@ public class AppUser extends AbstractPersistable<Long> implements PlatformUser {
     @Column(name = "is_self_service_user", nullable = false)
 	private boolean isSelfServiceUser;
     
-    @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL,  orphanRemoval = true)
     @JoinColumn(name = "appuser_id", referencedColumnName= "id", nullable = false)
     private Set<AppUserClientMapping> appUserClientMappings = new HashSet<>();
 

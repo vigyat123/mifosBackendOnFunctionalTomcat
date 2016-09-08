@@ -27,7 +27,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -39,6 +38,8 @@ import org.apache.fineract.organisation.provisioning.constants.ProvisioningCrite
 import org.apache.fineract.organisation.provisioning.data.ProvisioningCriteriaDefinitionData;
 import org.apache.fineract.portfolio.loanproduct.domain.LoanProduct;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.DateTime;
 
 @Entity
@@ -48,10 +49,12 @@ public class ProvisioningCriteria extends AbstractAuditableCustom<AppUser, Long>
     @Column(name = "criteria_name", nullable = false)
     private String criteriaName;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteria", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteria", orphanRemoval = true)
     Set<ProvisioningCriteriaDefinition> provisioningCriteriaDefinition = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteria", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "criteria", orphanRemoval = true)
     Set<LoanProductProvisionCriteria> loanProductMapping = new HashSet<>();
 
     public String getCriteriaName() {

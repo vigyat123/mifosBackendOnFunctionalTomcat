@@ -29,7 +29,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
@@ -40,6 +39,8 @@ import org.apache.fineract.infrastructure.core.data.ApiParameterError;
 import org.apache.fineract.infrastructure.core.data.DataValidatorBuilder;
 import org.apache.fineract.infrastructure.core.exception.PlatformApiDataValidationException;
 import org.apache.fineract.infrastructure.core.exception.PlatformDataIntegrityException;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 import com.google.gson.JsonArray;
@@ -73,8 +74,10 @@ public final class Report extends AbstractPersistable<Long> {
     @Column(name = "report_sql")
     private String reportSql;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "report", orphanRemoval = true)
     private final Set<ReportParameterUsage> reportParameterUsages = new HashSet<>();
+
 
     public static Report fromJson(final JsonCommand command, final Collection<String> reportTypes) {
 

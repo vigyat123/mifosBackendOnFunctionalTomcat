@@ -143,7 +143,16 @@ import org.apache.fineract.portfolio.loanaccount.domain.LoanTrancheDisbursementC
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTransaction;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTransactionRepository;
 import org.apache.fineract.portfolio.loanaccount.domain.LoanTransactionType;
-import org.apache.fineract.portfolio.loanaccount.exception.*;
+import org.apache.fineract.portfolio.loanaccount.exception.DateMismatchException;
+import org.apache.fineract.portfolio.loanaccount.exception.ExceedingTrancheCountException;
+import org.apache.fineract.portfolio.loanaccount.exception.InvalidPaidInAdvanceAmountException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanDisbursalException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanForeclosureException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanMultiDisbursementException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanOfficerAssignmentException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanOfficerUnassignmentException;
+import org.apache.fineract.portfolio.loanaccount.exception.LoanTransactionNotFoundException;
+import org.apache.fineract.portfolio.loanaccount.exception.MultiDisbursementDataRequiredException;
 import org.apache.fineract.portfolio.loanaccount.guarantor.service.GuarantorDomainService;
 import org.apache.fineract.portfolio.loanaccount.loanschedule.data.OverdueLoanScheduleData;
 import org.apache.fineract.portfolio.loanaccount.loanschedule.domain.DefaultScheduledDateGenerator;
@@ -2421,7 +2430,7 @@ public class LoanWritePlatformServiceJpaRepositoryImpl implements LoanWritePlatf
                 BigDecimal interest = BigDecimal.ZERO;
                 BigDecimal feeCharges = BigDecimal.ZERO;
                 BigDecimal penaltyCharges = BigDecimal.ONE;
-                final Set<LoanInterestRecalcualtionAdditionalDetails> compoundingDetails = null;
+                final List<LoanInterestRecalcualtionAdditionalDetails> compoundingDetails = null;
                 LoanRepaymentScheduleInstallment newEntry = new LoanRepaymentScheduleInstallment(loan, installments.size() + 1,
                         lastInstallment.getDueDate(), lastChargeDate, principal, interest, feeCharges, penaltyCharges,
                         recalculatedInterestComponent, compoundingDetails);

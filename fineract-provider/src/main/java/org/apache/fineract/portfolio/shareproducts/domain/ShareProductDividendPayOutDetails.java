@@ -26,7 +26,6 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -36,6 +35,8 @@ import javax.persistence.TemporalType;
 import org.apache.fineract.infrastructure.core.domain.AbstractAuditableCustom;
 import org.apache.fineract.portfolio.shareaccounts.domain.ShareAccountDividendDetails;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 
 @Entity
@@ -59,7 +60,8 @@ public class ShareProductDividendPayOutDetails extends AbstractAuditableCustom<A
     @Column(name = "status", nullable = false)
     private Integer status;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.TRUE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "dividend_pay_out_id", referencedColumnName = "id", nullable = false)
     private List<ShareAccountDividendDetails> accountDividendDetails = new ArrayList<>();
 

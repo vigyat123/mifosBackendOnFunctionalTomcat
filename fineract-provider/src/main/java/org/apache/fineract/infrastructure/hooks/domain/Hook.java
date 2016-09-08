@@ -18,24 +18,37 @@
  */
 package org.apache.fineract.infrastructure.hooks.domain;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.fineract.infrastructure.core.api.JsonCommand;
-import org.apache.fineract.infrastructure.core.domain.AbstractAuditableCustom;
-import org.apache.fineract.template.domain.Template;
-import org.apache.fineract.useradministration.domain.AppUser;
-import org.springframework.util.CollectionUtils;
-
-import javax.persistence.*;
+import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.configParamName;
+import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.displayNameParamName;
+import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.eventsParamName;
+import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.isActiveParamName;
+import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.templateIdParamName;
 
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
 
-import static org.apache.fineract.infrastructure.hooks.api.HookApiConstants.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.fineract.infrastructure.core.api.JsonCommand;
+import org.apache.fineract.infrastructure.core.domain.AbstractAuditableCustom;
+import org.apache.fineract.template.domain.Template;
+import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+import org.springframework.util.CollectionUtils;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 
 @Entity
 @Table(name = "m_hook")
@@ -47,10 +60,13 @@ public class Hook extends AbstractAuditableCustom<AppUser, Long> {
     @Column(name = "is_active", nullable = false)
     private Boolean isActive;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hook", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hook", orphanRemoval = true)
     private Set<HookResource> events = new HashSet<>();
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hook", orphanRemoval = true, fetch=FetchType.EAGER)
+
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "hook", orphanRemoval = true)
     private Set<HookConfiguration> config = new HashSet<>();
 
     @ManyToOne(optional = true)

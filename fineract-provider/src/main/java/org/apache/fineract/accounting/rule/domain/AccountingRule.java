@@ -28,7 +28,6 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -41,6 +40,8 @@ import org.apache.fineract.accounting.journalentry.domain.JournalEntryType;
 import org.apache.fineract.accounting.rule.api.AccountingRuleJsonInputParams;
 import org.apache.fineract.infrastructure.core.api.JsonCommand;
 import org.apache.fineract.organisation.office.domain.Office;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -68,8 +69,10 @@ public class AccountingRule extends AbstractPersistable<Long> {
     @Column(name = "system_defined", nullable = false)
     private Boolean systemDefined;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountingRule", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "accountingRule", orphanRemoval = true)
     private final List<AccountingTagRule> accountingTagRules = new ArrayList<>();
+
 
     @Column(name = "allow_multiple_credits", nullable = false)
     private boolean allowMultipleCreditEntries;

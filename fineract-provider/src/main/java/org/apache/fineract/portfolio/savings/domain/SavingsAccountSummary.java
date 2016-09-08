@@ -91,7 +91,7 @@ public final class SavingsAccountSummary {
     }
 
     public void updateSummary(final MonetaryCurrency currency, final SavingsAccountTransactionSummaryWrapper wrapper,
-            final Set<SavingsAccountTransaction> transactions) {
+            final List<SavingsAccountTransaction> transactions) {
 
         this.totalDeposits = wrapper.calculateTotalDeposits(currency, transactions);
         this.totalWithdrawals = wrapper.calculateTotalWithdrawals(currency, transactions);

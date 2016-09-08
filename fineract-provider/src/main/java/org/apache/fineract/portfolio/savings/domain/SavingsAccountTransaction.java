@@ -51,6 +51,8 @@ import org.apache.fineract.portfolio.savings.domain.interest.EndOfDayBalance;
 import org.apache.fineract.portfolio.savings.service.SavingsEnumerations;
 import org.apache.fineract.portfolio.tax.domain.TaxComponent;
 import org.apache.fineract.useradministration.domain.AppUser;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 import org.joda.time.LocalDate;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 import org.springframework.util.CollectionUtils;
@@ -101,7 +103,8 @@ public final class SavingsAccountTransaction extends AbstractPersistable<Long> {
     @Column(name = "balance_number_of_days_derived", nullable = false)
     private Integer balanceNumberOfDays;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccountTransaction", orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "savingsAccountTransaction", orphanRemoval = true)
     private final Set<SavingsAccountChargePaidBy> savingsAccountChargesPaid = new HashSet<>();
 
     @Column(name = "overdraft_amount_derived", scale = 6, precision = 19, nullable = true)
@@ -115,7 +118,8 @@ public final class SavingsAccountTransaction extends AbstractPersistable<Long> {
     @JoinColumn(name = "appuser_id", nullable = true)
     private AppUser appUser;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch=FetchType.EAGER)
+    @LazyCollection(LazyCollectionOption.FALSE)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "savings_transaction_id", referencedColumnName = "id", nullable = false)
     private final List<SavingsAccountTransactionTaxDetails> taxDetails = new ArrayList<>();
 
