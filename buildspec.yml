@@ -3,7 +3,7 @@ phases:
   build:
     commands:
       - ls -al
-      - gradlew dist
+      - sudo gradlew build
 artifacts:
   files:
       - dist/**/*
