@@ -2,8 +2,11 @@ version: 0.1
 phases:
   build:
     commands:
-      - ls -al
-      - sudo gradlew build
+      - sudo su
+      - curl -s "https://get.sdkman.io" | bash
+      - sdk install gradle 2.10
+      - export PATH=$PATH:/opt/gradle/gradle-4.3.1/bin
+      - gradle -v
 artifacts:
   files:
       - dist/**/*
