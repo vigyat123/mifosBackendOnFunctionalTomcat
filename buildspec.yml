@@ -2,14 +2,7 @@ version: 0.1
 phases:
   build:
     commands:
-      - sudo su
-      - gradle_version=2.10
-      - wget -c http://services.gradle.org/distributions/gradle-${gradle_version}-all.zip
-      - unzip  gradle-${gradle_version}-all.zip -d /opt
-      - ln -s /opt/gradle-${gradle_version} /opt/gradle
-      - printf "export GRADLE_HOME=/opt/gradle\nexport PATH=\$PATH:\$GRADLE_HOME/bin\n" > /etc/profile.d/gradle.sh
-      - source /etc/profile.d/gradle.sh
-      - gradle -v
+      - ./gradlew build
 artifacts:
   files:
       - dist/**/*
