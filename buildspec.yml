@@ -2,6 +2,7 @@ version: 0.1
 phases:
   build:
     commands:
+      - gradle wrapper --gradle-version 4.3.1
       - gradlew dist
       - gradlew integrationTest
 artifacts:
@@ -11,6 +12,5 @@ artifacts:
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
       - awsscripts/aws_codedeploy_config.sh
-      - appspec.yml
-base-directory: mifosFrontend     
+      - appspec.yml   
 discard-paths: yes
