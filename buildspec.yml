@@ -2,7 +2,8 @@ version: 0.1
 phases:
   build:
     commands:
-      - ./gradlew build
+      - ./gradlew dist
+      - ./gradlew integrationTest
 artifacts:
   files:
       - dist/**/*
