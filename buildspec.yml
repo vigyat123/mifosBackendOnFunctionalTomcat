@@ -3,8 +3,7 @@ phases:
   build:
     commands:
       - gradle wrapper --gradle-version 2.10
-      - gradlew dist
-      - gradlew integrationTest
+      - gradlew build
 artifacts:
   files:
       - dist/**/*
