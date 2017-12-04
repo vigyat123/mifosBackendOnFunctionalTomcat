@@ -7,7 +7,7 @@ phases:
       - ls -al
 artifacts:
   files:
-      - build/libs/fineractplatform
+      - build/libs/*
       - awsscripts/install_dependencies.sh
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
