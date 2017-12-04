@@ -2,7 +2,8 @@ version: 0.1
 phases:
   build:
     commands:
-      - ./gradlew build
+      - cd fineract-provider
+      - ./gradlew dist
 artifacts:
   files:
       - build/libs/fineractplatform
