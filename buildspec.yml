@@ -2,10 +2,7 @@ version: 0.1
 phases:
   build:
     commands:
-      - cd fineract-provider
-      - gradle wrapper --gradle-version 4.3.1
-      - gradlew dist
-      - gradlew integrationTest
+      - gradlew build
 artifacts:
   files:
       - dist/**/*
