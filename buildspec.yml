@@ -2,9 +2,9 @@ version: 0.1
 phases:
   build:
     commands:
-      - wget --no-check-certificate -P fineract-provider/gradle/wrapper https://github.com/apache/incubator-fineract/raw/develop/fineract-provider/gradle/wrapper/gradle-wrapper.jar
-      - gradle wrapper --gradle-version 2.10
-      - gradlew build
+      - cd fineract-provider
+      - gradlew dist
+      - gradlew integrationTest
 artifacts:
   files:
       - dist/**/*
