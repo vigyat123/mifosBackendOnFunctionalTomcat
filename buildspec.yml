@@ -1,0 +1,16 @@
+version: 0.1
+phases:
+  build:
+    commands:
+      - gradlew dist
+      - gradlew integrationTest
+artifacts:
+  files:
+      - dist/**/*
+      - awsscripts/install_dependencies.sh
+      - awsscripts/start_application.sh
+      - awsscripts/stop_application.sh
+      - awsscripts/aws_codedeploy_config.sh
+      - appspec.yml
+base-directory: mifosFrontend     
+discard-paths: yes
