@@ -4,6 +4,7 @@ phases:
     commands:
       - sudo su
       - curl -s "https://get.sdkman.io" | bash
+      - source "/root/.sdkman/bin/sdkman-init.sh"
       - sdk install gradle 2.10
       - export PATH=$PATH:/opt/gradle/gradle-4.3.1/bin
       - gradle -v
