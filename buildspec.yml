@@ -2,11 +2,8 @@ version: 0.1
 phases:
   build:
     commands:
-      - rm -rf gradlew
-      - rm -rf gradlew.bat
-      - curl --insecure -L https://github.com/apache/incubator-fineract/raw/develop/fineract-provider/gradle/wrapper/gradle-wrapper.jar
       - ls -al
-      - gradlew dist
+      - gradlew build
 artifacts:
   files:
       - dist/**/*
