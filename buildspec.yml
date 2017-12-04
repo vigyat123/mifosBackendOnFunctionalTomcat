@@ -4,6 +4,7 @@ phases:
     commands:
       - cd fineract-provider
       - ./gradlew dist
+      - ls -al
 artifacts:
   files:
       - build/libs/fineractplatform
