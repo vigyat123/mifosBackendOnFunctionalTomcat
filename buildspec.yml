@@ -5,7 +5,7 @@ phases:
       - ./gradlew dist
 artifacts:
   files:
-      - dist/**/*
+      - fineractplatform
       - awsscripts/install_dependencies.sh
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
