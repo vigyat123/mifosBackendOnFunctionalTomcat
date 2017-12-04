@@ -2,12 +2,10 @@ version: 0.1
 phases:
   build:
     commands:
-      - cd fineract-provider
       - ./gradlew dist
-      - ls -al
 artifacts:
   files:
-      - build/libs/*
+      - build/libs/fineract-provider.war
       - awsscripts/install_dependencies.sh
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
