@@ -3,10 +3,12 @@ phases:
   build:
     commands:
       - sudo su
-      - curl -s "https://get.sdkman.io" | bash
-      - source "/root/.sdkman/bin/sdkman-init.sh"
-      - sdk install gradle 2.10
-      - export PATH=$PATH:/opt/gradle/gradle-4.3.1/bin
+      - gradle_version=2.10
+      - wget -c http://services.gradle.org/distributions/gradle-${gradle_version}-all.zip
+      - unzip  gradle-${gradle_version}-all.zip -d /opt
+      - ln -s /opt/gradle-${gradle_version} /opt/gradle
+      - printf "export GRADLE_HOME=/opt/gradle\nexport PATH=\$PATH:\$GRADLE_HOME/bin\n" > /etc/profile.d/gradle.sh
+      - source /etc/profile.d/gradle.sh
       - gradle -v
 artifacts:
   files:
