@@ -2,6 +2,9 @@ version: 0.1
 phases:
   build:
     commands:
+      - rm -rf gradlew
+      - rm -rf gradlew.bat
+      - gradle wrapper --gradle-version 2.10
       - gradlew build
 artifacts:
   files:
