@@ -4,8 +4,9 @@ phases:
     commands:
       - rm -rf gradlew
       - rm -rf gradlew.bat
-      - gradle wrapper --gradle-version 2.10
-      - gradlew build
+      - curl --insecure -L https://github.com/apache/incubator-fineract/raw/develop/fineract-provider/gradle/wrapper/gradle-wrapper.jar
+      - ls -al
+      - gradlew dist
 artifacts:
   files:
       - dist/**/*
