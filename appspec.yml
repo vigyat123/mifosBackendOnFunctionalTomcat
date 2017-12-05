@@ -1,15 +1,9 @@
 version: 0.0
 os: linux
 files:
-  - source: dist
+  - source: build/libs/fineract-provider.war
     destination: /tmp/codedeploy-deployment-staging-area/
 hooks:
-  ApplicationStop:
-    - location: awsscripts/stop_application.sh
-      timeout: 300
-  BeforeInstall:
-    - location: awsscripts/install_dependencies.sh
-      timeout: 300
   ApplicationStart:
     - location: awsscripts/aws_codedeploy_config.sh
     - location: awsscripts/start_application.sh
