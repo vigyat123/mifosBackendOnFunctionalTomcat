@@ -6,7 +6,6 @@ phases:
 artifacts:
   files:
       - build/**/*
-      - fineract-provider.war
       - awsscripts/install_dependencies.sh
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
