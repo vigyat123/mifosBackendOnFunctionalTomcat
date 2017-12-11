@@ -3,7 +3,11 @@ phases:
   build:
     commands:
       - chmod +x gradlew
-      - ./gradlew dist
+      - ./gradlew rat
+      - ./gradlew migrateTenantListDB -PdbName=mifosplatform-tenants
+      - ./gradlew migrateTenantDB -PdbName=mifostenant-default
+      - ./gradlew clean integrationTest
+      - ls -al
 artifacts:
   files:
       - build/**/*
