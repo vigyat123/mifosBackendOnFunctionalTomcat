@@ -2,7 +2,7 @@ version: 0.1
 phases:
   build:
     commands:
-      - chmod +x gradlew
+      - chmod 755 gradlew
       - ./gradlew rat
       - ./gradlew migrateTenantListDB -PdbName=mifosplatform-tenants
       - ./gradlew migrateTenantDB -PdbName=mifostenant-default
