@@ -3,7 +3,7 @@ phases:
   build:
     commands:
       - chmod 755 gradlew
-      - ./gradlew migrateTenantListDB -PdbName=mifosplatform-tenants --stacktrace --debug --info
+      - ./gradlew migrateTenantListDB -PdbName=mifosplatform-tenants
       - ./gradlew migrateTenantDB -PdbName=mifostenant-default
       - ./gradlew clean integrationTest
       - ls -al
