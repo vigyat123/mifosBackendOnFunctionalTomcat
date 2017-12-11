@@ -3,7 +3,7 @@ phases:
   build:
     commands:
       - chmod 755 gradlew
-      - ./gradlew clean integrationTest
+      - ./gradlew clean integrationTest --stacktrace --info --debug
       - ls -al
 artifacts:
   files:
