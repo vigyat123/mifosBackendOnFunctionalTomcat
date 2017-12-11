@@ -478,7 +478,7 @@ task migrateTenantListDB<<{
 		tenantsDbName = rootProject.getProperty("dbName")
 	}
 	
-    flyway.url= "jdbc:mysql://localhost:3306/$tenantsDbName"
+    flyway.url= "mifoslms-mysql.ciflb6pkogmo.ap-south-1.rds.amazonaws.com:3306/$tenantsDbName"
 	flyway.driver = "com.mysql.jdbc.Driver"
     flyway.locations= [filePath]
 
