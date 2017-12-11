@@ -4,6 +4,7 @@ phases:
     commands:
       - chmod 755 gradlew
       - ./gradlew integrationTest
+      - ./gradlew build
       - ls -al
 artifacts:
   files:
