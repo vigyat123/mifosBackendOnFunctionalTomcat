@@ -16,15 +16,15 @@ if [[ "$DEPLOY_TO_ROOT" = 'true' ]]; then
 fi
 
 # Remove unpacked application artifacts
-if [[ -f $CATALINA_HOME/webapps/fineract-provider.war ]]; then
-    rm $CATALINA_HOME/webapps/fineract-provider.war
+if [[ -f $CATALINA_HOME/webapps/$CONTEXT_PATH.war ]]; then
+    rm $CATALINA_HOME/webapps/$CONTEXT_PATH.war
 fi
-#if [[ -d $CATALINA_HOME/webapps/$CONTEXT_PATH ]]; then
-#   rm -rfv $CATALINA_HOME/webapps/$CONTEXT_PATH
-#fi
+if [[ -d $CATALINA_HOME/webapps/$CONTEXT_PATH ]]; then
+    rm -rfv $CATALINA_HOME/webapps/$CONTEXT_PATH
+fi
 
 # Copy the WAR file to the webapps directory
-cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps
+cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps/$CONTEXT_PATH.war
 if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
     rm /usr/share/tomcat7-codedeploy/conf/server.xml
 fi
