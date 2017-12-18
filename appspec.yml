@@ -3,7 +3,7 @@ os: linux
 files:
   - source: build/libs/fineract-provider.war
     destination: /tmp/codedeploy-deployment-staging-area/
- hooks:
+hooks:
   ApplicationStop:
     - location: awsscripts/stop_application.sh
       timeout: 300
