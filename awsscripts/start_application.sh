@@ -23,11 +23,19 @@ if [[ -d $CATALINA_HOME/webapps/$CONTEXT_PATH ]]; then
     rm -rfv $CATALINA_HOME/webapps/$CONTEXT_PATH
 fi
 
+if [[ -f /usr/share/tomcat7-codedeploy/bin/setenv.sh ]]; then
+    rm /usr/share/tomcat7-codedeploy/bin/setenv.sh
+fi
+cat > /usr/share/tomcat7-codedeploy/bin/setenv.sh <<'EOF'
+JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m -DJDBC_CONNECTION_STRING=jdbc:mysql://mifoslms-mysql.ciflb6pkogmo.ap-south-1.rds.amazonaws.com:3306/mifosplatform-tenants -DJDBC_USER_NAME=root -DJDBC_PASSWORD=mysql"
+EOF
+
 # Copy the WAR file to the webapps directory
 cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps/$CONTEXT_PATH.war
 if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
     rm /usr/share/tomcat7-codedeploy/conf/server.xml
 fi
+
 cat > /usr/share/tomcat7-codedeploy/conf/server.xml <<'EOF'
 <?xml version='1.0' encoding='utf-8'?>
 <Server port="8005" shutdown="SHUTDOWN">
