@@ -12,5 +12,6 @@ artifacts:
       - awsscripts/start_application.sh
       - awsscripts/stop_application.sh
       - awsscripts/aws_codedeploy_config.sh
-      - appspec.yml   
+      - appspec.yml  
+      - mysql-connector-java-5.1.45.tar.gz
 discard-paths: yes
