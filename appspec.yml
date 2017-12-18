@@ -3,9 +3,7 @@ os: linux
 files:
   - source: build/libs/fineract-provider.war
     destination: /tmp/codedeploy-deployment-staging-area/
-  - source: mysql-connector-java-5.1.45.tar.gz
-    destination: /tmp/codedeploy-deployment-staging-area2/
-hooks:
+ hooks:
   ApplicationStop:
     - location: awsscripts/stop_application.sh
       timeout: 300
