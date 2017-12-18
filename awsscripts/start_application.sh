@@ -15,10 +15,15 @@ if [[ "$DEPLOY_TO_ROOT" = 'true' ]]; then
     CONTEXT_PATH='ROOT'
 fi
 
-# Remove unpacked application artifacts
 if [[ -f $CATALINA_HOME/webapps/$CONTEXT_PATH.war ]]; then
     rm $CATALINA_HOME/webapps/$CONTEXT_PATH.war
 fi
+# Remove unpacked application artifacts
+if [[ -f $CATALINA_HOME/lib/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar ]]; then
+    rm $CATALINA_HOME/lib/mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar
+fi
+tar -xvf mysql-connector-java-5.1.40.tar.gz
+sudo mv mysql-connector-java-5.1.40/mysql-connector-java-5.1.40-bin.jar /usr/share/tomcat7/lib/
 if [[ -d $CATALINA_HOME/webapps/$CONTEXT_PATH ]]; then
     rm -rfv $CATALINA_HOME/webapps/$CONTEXT_PATH
 fi
