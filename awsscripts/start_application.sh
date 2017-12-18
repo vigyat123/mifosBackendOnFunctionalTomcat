@@ -10,7 +10,7 @@ SERVER_HTTP_PORT='8080'
 TEMP_STAGING_DIR='/tmp/codedeploy-deployment-staging-area'
 TEMP_STAGING_DIR2='/tmp/codedeploy-deployment-staging-area2'
 WAR_STAGED_LOCATION="$TEMP_STAGING_DIR/fineract-provider.war"
-WAR_STAGED_LOCATION_2="$TEMP_STAGING_DIR/mysql-connector-java-5.1.40.tar.gz"
+WAR_STAGED_LOCATION_2="$TEMP_STAGING_DIR2/mysql-connector-java-5.1.40.tar.gz"
 
 # In Tomcat, ROOT.war maps to the server root
 if [[ "$DEPLOY_TO_ROOT" = 'true' ]]; then
