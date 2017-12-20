@@ -87,6 +87,7 @@ URIEncoding="UTF-8"
 compression="force"
 compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css"/>
 
+<Connector port="8080" connectionTimeout="20000" protocol="HTTP/1.1"/>
 <Connector port="8009" protocol="AJP/1.3" redirectPort="8443" />
 
 <Engine name="Catalina" defaultHost="localhost">
