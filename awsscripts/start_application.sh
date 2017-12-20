@@ -33,6 +33,7 @@ EOF
 
 # Copy the WAR file to the webapps directory
 cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps
+chmod 755 $CATALINA_HOME/webapps/fineract-provider.war
 if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
     rm /usr/share/tomcat7-codedeploy/conf/server.xml
 fi
