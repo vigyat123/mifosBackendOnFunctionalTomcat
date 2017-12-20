@@ -37,9 +37,7 @@ tar xzf $TOMCAT7_CORE_TAR_FILENAME
 #cp -r /tmp/$TOMCAT7_CORE_UNPACKED_DIRNAME/* $CATALINA_HOME
 #sudo keytool -genkey -keyalg RSA -alias tomcat -keystore /usr/share/tomcat.keystore
 #sudo nano /usr/share/tomcat7-codedeploy/conf/server.xml 
-if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
-    rm /usr/share/tomcat7-codedeploy/conf/server.xml
-fi
+
 cat > /etc/init.d/tomcat7 <<'EOF'
 #!/bin/bash
 # description: Tomcat7 Start Stop Restart
