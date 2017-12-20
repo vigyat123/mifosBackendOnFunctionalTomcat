@@ -9,12 +9,12 @@ TEMP_STAGING_DIR='/tmp/codedeploy-deployment-staging-area'
 WAR_STAGED_LOCATION="$TEMP_STAGING_DIR/fineract-provider.war"
 
 # In Tomcat, ROOT.war maps to the server root
-if [[ "$DEPLOY_TO_ROOT" = 'true' ]]; then
-    CONTEXT_PATH='ROOT'
-fi
+#if [[ "$DEPLOY_TO_ROOT" = 'true' ]]; then
+#    CONTEXT_PATH='ROOT'
+#fi
 
-if [[ -f $CATALINA_HOME/webapps/$CONTEXT_PATH.war ]]; then
-    rm $CATALINA_HOME/webapps/$CONTEXT_PATH.war
+if [[ -f $CATALINA_HOME/webapps/fineract-provider.war ]]; then
+    rm $CATALINA_HOME/webapps/fineract-provider.war
 fi
 # Remove unpacked application artifacts
 if [[ -f /usr/share/tomcat7-codedeploy/bin/setenv.sh ]]; then
@@ -25,7 +25,7 @@ JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m -DJDBC_CONNECTION_STRING=jdbc:mysql://m
 EOF
 
 # Copy the WAR file to the webapps directory
-cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps/$CONTEXT_PATH.war
+cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps
 if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
     rm /usr/share/tomcat7-codedeploy/conf/server.xml
 fi
