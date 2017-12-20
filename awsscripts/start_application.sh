@@ -5,7 +5,7 @@ set -e
 CATALINA_HOME='/usr/share/tomcat7-codedeploy'
 DEPLOY_TO_ROOT='true'
 #CONTEXT_PATH='##CONTEXT_PATH##'
-SERVER_HTTP_PORT='8080'
+
 
 TEMP_STAGING_DIR='/tmp/codedeploy-deployment-staging-area'
 #TEMP_STAGING_DIR2='/tmp/codedeploy-deployment-staging-area2'
