@@ -43,6 +43,27 @@ tar xzf $TOMCAT7_CORE_TAR_FILENAME
 if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
     rm /usr/share/tomcat7-codedeploy/conf/server.xml
 fi
+cat > /etc/init.d/tomcat7 <<'EOF'
+#!/bin/bash
+# description: Tomcat7 Start Stop Restart
+# processname: tomcat7
+PATH=$JAVA_HOME/bin:$PATH
+export PATH
+CATALINA_HOME='/usr/share/tomcat7-codedeploy'
+case $1 in
+start)
+sh $CATALINA_HOME/bin/startup.sh
+;;
+stop)
+sh $CATALINA_HOME/bin/shutdown.sh
+;;
+restart)
+sh $CATALINA_HOME/bin/shutdown.sh
+sh $CATALINA_HOME/bin/startup.sh
+;;
+esac
+exit 0
+EOF
 
 # Change permission mode for the service script
 chmod 755 /etc/init.d/tomcat7
