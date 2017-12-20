@@ -34,9 +34,8 @@ fi
 tar xzf $TOMCAT7_CORE_TAR_FILENAME
 
 # Copy over to the CATALINA_HOME
-#cp -r /tmp/$TOMCAT7_CORE_UNPACKED_DIRNAME/* $CATALINA_HOME
+cp -r /tmp/$TOMCAT7_CORE_UNPACKED_DIRNAME/* $CATALINA_HOME
 #sudo keytool -genkey -keyalg RSA -alias tomcat -keystore /usr/share/tomcat.keystore
-#sudo nano /usr/share/tomcat7-codedeploy/conf/server.xml 
 
 cat > /etc/init.d/tomcat7 <<'EOF'
 #!/bin/bash
