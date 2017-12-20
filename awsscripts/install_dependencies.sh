@@ -4,15 +4,14 @@ set -e
 
 CATALINA_HOME=/usr/share/tomcat7-codedeploy
 
-# Tar file name
+# Apache TOMCAT Installation (Tar file name used is mentioned below)
 TOMCAT7_CORE_TAR_FILENAME='apache-tomcat-7.0.72.tar.gz'
 # Download URL for Tomcat7 core
 TOMCAT7_CORE_DOWNLOAD_URL="https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.72/bin/$TOMCAT7_CORE_TAR_FILENAME"
 # The top-level directory after unpacking the tar file
 TOMCAT7_CORE_UNPACKED_DIRNAME='apache-tomcat-7.0.72'
 
-# Check whether there exists a valid instance
-# of Tomcat7 installed at the specified directory
+# Check whether there exists a valid instance of Tomcat7 installed at the specified directory
 [[ -d $CATALINA_HOME ]] && { service tomcat7 status; } && {
     echo "Tomcat7 is already installed at $CATALINA_HOME. Skip reinstalling it."
     exit 0
@@ -24,7 +23,7 @@ if [ -d $CATALINA_HOME ]; then
 fi
 mkdir -p $CATALINA_HOME
 
-# Download the latest Tomcat7 version
+# Download the specifed Tomcat7 version
 cd /tmp
 { which wget; } || { yum install wget; }
 wget $TOMCAT7_CORE_DOWNLOAD_URL
