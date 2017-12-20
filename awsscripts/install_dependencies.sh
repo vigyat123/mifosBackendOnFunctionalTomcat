@@ -10,9 +10,6 @@ TOMCAT7_CORE_TAR_FILENAME='apache-tomcat-7.0.72.tar.gz'
 TOMCAT7_CORE_DOWNLOAD_URL="https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.72/bin/$TOMCAT7_CORE_TAR_FILENAME"
 # The top-level directory after unpacking the tar file
 TOMCAT7_CORE_UNPACKED_DIRNAME='apache-tomcat-7.0.72'
-# curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
-# . ~/.nvm/nvm.sh
-# nvm install 6.11.5
 
 # Check whether there exists a valid instance
 # of Tomcat7 installed at the specified directory
