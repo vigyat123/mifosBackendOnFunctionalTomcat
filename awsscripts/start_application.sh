@@ -78,7 +78,7 @@ suspectTimeout="60"
 
 <Service name="Catalina"> 
 <Connector protocol="org.apache.coyote.http11.Http11Protocol"
-port="8443" maxThreads="200" scheme="https"
+port="443" maxThreads="200" scheme="https"
 secure="true" SSLEnabled="true"
 keystoreFile="/usr/share/tomcat.keystore"
 keystorePass="xyz123"
