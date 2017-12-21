@@ -19,6 +19,15 @@ CATALINA_HOME=/usr/share/tomcat7-codedeploy
     exit 0
 }
 
+if [[ -f /usr/share/tomcat7-codedeploy/bin/setenv.sh ]]; then
+    rm /usr/share/tomcat7-codedeploy/bin/setenv.sh
+fi
+
+# Making connection to the RDS instance
+cat > /usr/share/tomcat7-codedeploy/bin/setenv.sh <<'EOF'
+JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m -DJDBC_CONNECTION_STRING=jdbc:mysql://mifoslms-mysql.ciflb6pkogmo.ap-south-1.rds.amazonaws.com:3306/mifosplatform-tenants -DJDBC_USER_NAME=root -DJDBC_PASSWORD=mysql"
+EOF
+
 # Clear install directory
 if [ -d $CATALINA_HOME ]; then
     rm -rf $CATALINA_HOME
