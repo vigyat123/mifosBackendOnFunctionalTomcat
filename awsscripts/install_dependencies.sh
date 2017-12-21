@@ -2,14 +2,16 @@
 
 set -e
 
-CATALINA_HOME=/usr/share/tomcat7-codedeploy
-
 # Apache TOMCAT Installation (Tar file name used is mentioned below)
 TOMCAT7_CORE_TAR_FILENAME='apache-tomcat-7.0.72.tar.gz'
 # Download URL for Tomcat7 core
 TOMCAT7_CORE_DOWNLOAD_URL="https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.72/bin/$TOMCAT7_CORE_TAR_FILENAME"
 # The top-level directory after unpacking the tar file
 TOMCAT7_CORE_UNPACKED_DIRNAME='apache-tomcat-7.0.72'
+
+# Location where Tomcat would be installed
+CATALINA_HOME=/usr/share/tomcat7-codedeploy
+
 
 # Check whether there exists a valid instance of Tomcat7 installed at the specified directory
 [[ -d $CATALINA_HOME ]] && { service tomcat7 status; } && {
@@ -34,7 +36,9 @@ tar xzf $TOMCAT7_CORE_TAR_FILENAME
 
 # Copy over to the CATALINA_HOME
 cp -r /tmp/$TOMCAT7_CORE_UNPACKED_DIRNAME/* $CATALINA_HOME
-#sudo keytool -genkey -keyalg RSA -alias tomcat -keystore /usr/share/tomcat.keystore
+
+# To make Tomcat automatically start when we boot up the server, the below script should be 
+# added to make it auto-start and shutdown.
 
 cat > /etc/init.d/tomcat7 <<'EOF'
 #!/bin/bash
