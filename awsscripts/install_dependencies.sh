@@ -25,7 +25,7 @@ fi
 
 # Making connection to the RDS instance
 cat > /usr/share/tomcat7-codedeploy/bin/setenv.sh <<'EOF'
-JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m -DJDBC_CONNECTION_STRING=jdbc:mysql://mifoslms-mysql.ciflb6pkogmo.ap-south-1.rds.amazonaws.com:3306/mifosplatform-tenants -DJDBC_USER_NAME=root -DJDBC_PASSWORD=mysql"
+JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m"
 EOF
 
 # Clear install directory
