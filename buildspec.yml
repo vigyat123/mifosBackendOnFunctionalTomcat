@@ -3,7 +3,7 @@ phases:
   build:
     commands:
       - chmod 755 gradlew
-      - ./gradlew build
+      - ./gradlew clean war
       - ls -al
 artifacts:
   files:
