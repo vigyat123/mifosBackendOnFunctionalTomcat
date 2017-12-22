@@ -45,7 +45,7 @@ public class DataSourceProperties extends PoolProperties {
     @Value("${" + PORT + ":3306}")
     private volatile @NotNull int port;
 
-    @Value("${" + HOST + ":localhost}")
+    @Value("${" + HOST + ":jdbc:mysql://mifoslms-mysql.ciflb6pkogmo.ap-south-1.rds.amazonaws.com}")
     private volatile @NotNull String hostname;
 
     @Value("${" + DB + ":mifosplatform-tenants}")
