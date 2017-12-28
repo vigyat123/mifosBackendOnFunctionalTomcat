@@ -71,7 +71,7 @@ suspectTimeout="60"
 
 <Service name="Catalina"> 
 <Connector protocol="org.apache.coyote.http11.Http11Protocol"
-port="8443" maxThreads="200" scheme="https"
+port="443" maxThreads="200" scheme="https"
 secure="true" SSLEnabled="true"
 ciphers="TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDHE_ECDSA_WITH_AES_256_GCM_SHA384,
 TLS_ECDH_RSA_WITH_AES_256_GCM_SHA384,TLS_ECDH_ECDSA_WITH_AES_256_GCM_SHA384,
