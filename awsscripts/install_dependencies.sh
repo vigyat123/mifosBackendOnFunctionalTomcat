@@ -19,14 +19,14 @@ CATALINA_HOME=/usr/share/tomcat7-codedeploy
     exit 0
 }
 
-if [[ -f /usr/share/tomcat7-codedeploy/bin/setenv.sh ]]; then
-    rm /usr/share/tomcat7-codedeploy/bin/setenv.sh
-fi
+#if [[ -f /usr/share/tomcat7-codedeploy/bin/setenv.sh ]]; then
+#    rm /usr/share/tomcat7-codedeploy/bin/setenv.sh
+#fi
 
 # Making connection to the RDS instance
-cat > /usr/share/tomcat7-codedeploy/bin/setenv.sh <<'EOF'
-JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m"
-EOF
+#cat > /usr/share/tomcat7-codedeploy/bin/setenv.sh <<'EOF'
+#JAVA_OPTS="$JAVA_OPTS -Xms512m -Xmx1024m"
+#EOF
 
 # Clear install directory
 if [ -d $CATALINA_HOME ]; then
