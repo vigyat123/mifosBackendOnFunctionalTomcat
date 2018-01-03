@@ -2,7 +2,7 @@
 
 set -e
 
-CATALINA_HOME='/usr/share/tomcat7-codedeploy'
+CATALINA_HOME='/usr/share/tomcat7'
 DEPLOY_TO_ROOT='true'
 
 TEMP_STAGING_DIR='/tmp/codedeploy-deployment-staging-area'
@@ -27,11 +27,11 @@ fi
 # Copy the WAR file to the webapps directory
 cp $WAR_STAGED_LOCATION $CATALINA_HOME/webapps
 chmod 777 $CATALINA_HOME/webapps/$CONTEXT_PATH.war
-if [[ -f /usr/share/tomcat7-codedeploy/conf/server.xml ]]; then
-    rm /usr/share/tomcat7-codedeploy/conf/server.xml
+if [[ -f /usr/share/tomcat7/conf/server.xml ]]; then
+    rm /usr/share/tomcat7/conf/server.xml
 fi
 
-cat > /usr/share/tomcat7-codedeploy/conf/server.xml <<'EOF'
+cat > /usr/share/tomcat7/conf/server.xml <<'EOF'
 <?xml version='1.0' encoding='utf-8'?>
 <Server port="8005" shutdown="SHUTDOWN">
 <Listener className="org.apache.catalina.core.AprLifecycleListener" SSLEngine="on" />
