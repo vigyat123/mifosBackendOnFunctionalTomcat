@@ -10,7 +10,7 @@ TOMCAT7_CORE_DOWNLOAD_URL="https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.
 TOMCAT7_CORE_UNPACKED_DIRNAME='apache-tomcat-7.0.72'
 
 # Location where Tomcat would be installed
-CATALINA_HOME=/usr/share/tomcat7-codedeploy
+CATALINA_HOME=/usr/share/tomcat7
 
 
 # Check whether there exists a valid instance of Tomcat7 installed at the specified directory
@@ -55,7 +55,7 @@ cat > /etc/init.d/tomcat7 <<'EOF'
 # processname: tomcat7
 PATH=$JAVA_HOME/bin:$PATH
 export PATH
-CATALINA_HOME='/usr/share/tomcat7-codedeploy'
+CATALINA_HOME='/usr/share/tomcat7'
 case $1 in
 start)
 sh $CATALINA_HOME/bin/startup.sh
