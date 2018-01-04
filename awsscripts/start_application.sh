@@ -87,7 +87,7 @@ TLS_ECDH_RSA_WITH_AES_128_CBC_SHA256,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA256,
 TLS_ECDH_RSA_WITH_AES_128_CBC_SHA,TLS_ECDH_ECDSA_WITH_AES_128_CBC_SHA"
 keystoreFile="/usr/share/tomcat.keystore"
 keystorePass="xyz123"
-clientAuth="false" sslProtocol="TLS"
+clientAuth="false" sslProtocol="all"
 URIEncoding="UTF-8"
 compression="force"
 compressableMimeType="text/html,text/xml,text/plain,text/javascript,text/css"/>
